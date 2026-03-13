@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>DevForge — Zero to Job-Ready Developer in 24 Weeks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<style>
+  :root {
+    --bg:#050A0F; --bg2:#080E15; --surface:#0D1721; --surface2:#111E2C;
+    --border:rgba(0,200,255,0.12); --neon:#00C8FF; --neon2:#00FFB2; --neon3:#FF6B35;
+    --text:#E8F4FF; --muted:#607A8A; --gold:#FFD166;
+    --tg:#229ED9; --tg2:#54A8E5;
+    --font-head:'Syne',sans-serif; --font-mono:'Space Mono',monospace; --font-body:'DM Sans',sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.65;overflow-x:hidden;}
+  a{color:var(--neon);text-decoration:none;}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:0.4;}
+
+  /* NAV */
+  nav{position:fixed;top:0;width:100%;z-index:900;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);background:rgba(5,10,15,0.85);border-bottom:1px solid var(--border);}
+  .nav-logo{font-family:var(--font-mono);font-size:1.3rem;color:var(--neon);letter-spacing:-1px;}
+  .nav-logo span{color:var(--neon2);}
+  .nav-cta{background:linear-gradient(135deg,var(--tg),var(--tg2));color:#fff;padding:0.5rem 1.4rem;border-radius:4px;font-family:var(--font-mono);font-size:0.78rem;font-weight:700;letter-spacing:1px;border:none;cursor:pointer;transition:all 0.2s;box-shadow:0 0 20px rgba(34,158,217,0.3);display:inline-flex;align-items:center;gap:6px;}
+  .nav-cta:hover{transform:translateY(-1px);box-shadow:0 0 30px rgba(34,158,217,0.5);}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 4rem;position:relative;overflow:hidden;}
+  .hero-glow{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,255,0.07) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+  .hero-glow2{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(34,158,217,0.06) 0%,transparent 70%);top:30%;left:30%;pointer-events:none;}
+  .badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(0,200,255,0.08);border:1px solid rgba(0,200,255,0.25);color:var(--neon);padding:0.4rem 1rem;border-radius:100px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:2rem;animation:fadeUp 0.8s ease both;}
+  .badge-dot{width:6px;height:6px;background:var(--neon2);border-radius:50%;animation:pulse 2s infinite;}
+  .hero h1{font-family:var(--font-head);font-size:clamp(2.8rem,7vw,6rem);font-weight:800;line-height:1.05;letter-spacing:-2px;max-width:900px;animation:fadeUp 0.8s 0.1s ease both;}
+  .line2{background:linear-gradient(90deg,var(--neon),var(--neon2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .hero-sub{margin-top:1.5rem;font-size:1.15rem;color:var(--muted);max-width:580px;animation:fadeUp 0.8s 0.2s ease both;font-weight:300;}
+  .hero-stats{display:flex;gap:3rem;margin-top:3rem;animation:fadeUp 0.8s 0.3s ease both;flex-wrap:wrap;justify-content:center;}
+  .stat{text-align:center;}
+  .stat-num{font-family:var(--font-mono);font-size:2rem;font-weight:700;color:var(--neon);display:block;}
+  .stat-label{font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+  .hero-cta-wrap{margin-top:3rem;animation:fadeUp 0.8s 0.4s ease both;display:flex;gap:1rem;align-items:center;flex-wrap:wrap;justify-content:center;}
+  .btn-primary{background:linear-gradient(135deg,var(--tg),var(--tg2));color:#fff;padding:1rem 2.5rem;border:none;border-radius:6px;font-family:var(--font-head);font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.25s;box-shadow:0 0 40px rgba(34,158,217,0.3);position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(34,158,217,0.5);}
+  .btn-ghost{background:transparent;color:var(--text);padding:1rem 2rem;border:1px solid var(--border);border-radius:6px;font-family:var(--font-body);font-size:0.9rem;cursor:pointer;transition:all 0.2s;}
+  .btn-ghost:hover{border-color:var(--neon);color:var(--neon);}
+
+  /* COUNTDOWN */
+  .countdown-bar{background:linear-gradient(135deg,rgba(255,107,53,0.15),rgba(255,107,53,0.05));border:1px solid rgba(255,107,53,0.3);border-radius:8px;padding:1rem 2rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;justify-content:center;margin-top:2rem;animation:fadeUp 0.8s 0.5s ease both;}
+  .cd-label{font-family:var(--font-mono);font-size:0.75rem;color:var(--neon3);letter-spacing:1px;text-transform:uppercase;}
+  .cd-timer{display:flex;gap:0.75rem;}
+  .cd-block{text-align:center;background:rgba(255,107,53,0.1);border:1px solid rgba(255,107,53,0.2);border-radius:4px;padding:0.3rem 0.6rem;min-width:50px;}
+  .cd-num{font-family:var(--font-mono);font-size:1.4rem;font-weight:700;color:var(--neon3);display:block;}
+  .cd-unit{font-size:0.6rem;color:var(--muted);text-transform:uppercase;}
+  .cd-price{font-family:var(--font-mono);color:var(--text);}
+  .cd-price s{color:var(--muted);}
+  .cd-price strong{color:var(--neon2);font-size:1.2rem;}
+
+  /* LAYOUT */
+  section{padding:6rem 2rem;position:relative;}
+  .container{max-width:1100px;margin:0 auto;}
+  .sec-tag{font-family:var(--font-mono);font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--neon);margin-bottom:1rem;display:block;}
+  .sec-title{font-family:var(--font-head);font-size:clamp(2rem,4vw,3rem);font-weight:800;line-height:1.1;letter-spacing:-1px;margin-bottom:1.5rem;}
+  .sec-sub{color:var(--muted);font-size:1.05rem;max-width:560px;font-weight:300;}
+  .divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);}
+
+  /* HOW IT WORKS */
+  .how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.5rem;margin-top:3.5rem;align-items:center;}
+  .how-step{text-align:center;}
+  .how-num{width:56px;height:56px;border-radius:50%;margin:0 auto 1.2rem;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:1.3rem;font-weight:700;border:2px solid var(--tg);color:var(--tg);background:rgba(34,158,217,0.06);}
+  .how-step h4{font-family:var(--font-head);font-weight:700;margin-bottom:0.5rem;}
+  .how-step p{font-size:0.85rem;color:var(--muted);}
+  .how-arrow{text-align:center;font-size:1.5rem;color:rgba(34,158,217,0.3);padding-top:0.5rem;}
+  @media(max-width:600px){.how-arrow{display:none;}}
+
+  /* CARDS */
+  .inside-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:3.5rem;}
+  .inside-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:2rem;position:relative;overflow:hidden;transition:all 0.3s;}
+  .inside-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--tg),var(--neon2));opacity:0;transition:opacity 0.3s;}
+  .inside-card:hover{border-color:rgba(34,158,217,0.3);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.4);}
+  .inside-card:hover::before{opacity:1;}
+  .inside-icon{font-size:2rem;margin-bottom:1rem;display:block;}
+  .inside-card h3{font-family:var(--font-head);font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;}
+  .inside-card p{color:var(--muted);font-size:0.9rem;line-height:1.6;}
+  .inside-num{position:absolute;top:1.5rem;right:1.5rem;font-family:var(--font-mono);font-size:0.65rem;color:var(--border);letter-spacing:2px;}
+
+  /* PHASES */
+  .phases-list{margin-top:3.5rem;display:flex;flex-direction:column;gap:1rem;}
+  .phase-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+  .phase-header{display:flex;align-items:center;gap:1.5rem;padding:1.5rem 2rem;cursor:pointer;user-select:none;}
+  .phase-num{font-family:var(--font-mono);font-size:0.7rem;letter-spacing:2px;color:var(--neon);background:rgba(0,200,255,0.08);border:1px solid rgba(0,200,255,0.2);padding:0.3rem 0.7rem;border-radius:4px;white-space:nowrap;}
+  .phase-title-wrap{flex:1;}
+  .phase-name{font-family:var(--font-head);font-size:1.1rem;font-weight:700;}
+  .phase-dur{font-size:0.8rem;color:var(--muted);margin-top:0.1rem;}
+  .phase-toggle{font-size:1.2rem;color:var(--muted);transition:transform 0.3s;}
+  .phase-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}
+  .phase-body.open{max-height:600px;}
+  .phase-toggle.open{transform:rotate(45deg);color:var(--neon);}
+  .phase-content{padding:1.2rem 2rem 2rem;border-top:1px solid var(--border);}
+  .phase-topics{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.5rem;}
+  .topic-chip{display:flex;align-items:center;gap:0.5rem;font-size:0.82rem;color:var(--muted);}
+  .topic-chip::before{content:'›';color:var(--neon2);font-weight:700;}
+
+  /* PROJECTS */
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;margin-top:3.5rem;}
+  .project-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.8rem;transition:all 0.3s;}
+  .project-card:hover{border-color:rgba(0,255,178,0.3);transform:translateY(-3px);}
+  .project-tag{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:100px;margin-bottom:1rem;display:inline-block;}
+  .tag-main{background:rgba(0,255,178,0.1);color:var(--neon2);border:1px solid rgba(0,255,178,0.2);}
+  .tag-mini{background:rgba(0,200,255,0.1);color:var(--neon);border:1px solid rgba(0,200,255,0.2);}
+  .project-card h3{font-family:var(--font-head);font-weight:700;margin-bottom:0.5rem;}
+  .project-card p{font-size:0.85rem;color:var(--muted);}
+  .project-stack{margin-top:1rem;display:flex;flex-wrap:wrap;gap:0.4rem;}
+  .stack-pill{font-family:var(--font-mono);font-size:0.65rem;background:var(--surface2);padding:0.2rem 0.5rem;border-radius:3px;color:var(--muted);}
+
+  /* TESTI */
+  .testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:3.5rem;}
+  .testi-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:2rem;position:relative;}
+  .testi-card::before{content:'"';position:absolute;top:1rem;right:1.5rem;font-size:5rem;line-height:1;font-family:Georgia,serif;color:rgba(0,200,255,0.06);pointer-events:none;}
+  .testi-text{font-size:0.95rem;color:var(--text);line-height:1.7;margin-bottom:1.5rem;}
+  .testi-author{display:flex;align-items:center;gap:0.75rem;}
+  .testi-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-weight:700;font-size:1rem;}
+  .av1{background:linear-gradient(135deg,#00C8FF,#0050FF);}
+  .av2{background:linear-gradient(135deg,#00FFB2,#00C8FF);}
+  .av3{background:linear-gradient(135deg,#FF6B35,#FFD166);}
+  .av4{background:linear-gradient(135deg,#FF4D6D,#FF6B35);}
+  .testi-name{font-family:var(--font-head);font-weight:700;font-size:0.9rem;}
+  .testi-role{font-size:0.75rem;color:var(--muted);}
+  .stars{color:var(--gold);font-size:0.75rem;margin-bottom:0.75rem;}
+
+  /* PRICING */
+  .pricing-wrap{display:flex;justify-content:center;margin-top:3.5rem;}
+  .pricing-card{background:var(--surface);border:1px solid rgba(34,158,217,0.35);border-radius:16px;padding:3rem;max-width:500px;width:100%;position:relative;overflow:hidden;box-shadow:0 0 80px rgba(34,158,217,0.08);}
+  .pricing-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--tg),var(--neon2));}
+  .popular-badge{position:absolute;top:1.5rem;right:1.5rem;background:linear-gradient(135deg,var(--tg),var(--neon2));color:#000;font-family:var(--font-mono);font-size:0.6rem;letter-spacing:1px;padding:0.3rem 0.7rem;border-radius:100px;font-weight:700;}
+  .price-label{font-family:var(--font-mono);font-size:0.72rem;letter-spacing:2px;color:var(--tg);text-transform:uppercase;margin-bottom:1rem;}
+  .price-title{font-family:var(--font-head);font-size:1.5rem;font-weight:800;margin-bottom:1.5rem;}
+  .price-amount{display:flex;align-items:baseline;gap:0.5rem;margin-bottom:0.5rem;}
+  .price-old{font-family:var(--font-mono);font-size:1rem;color:var(--muted);text-decoration:line-through;}
+  .price-new{font-family:var(--font-mono);font-size:3.5rem;font-weight:700;color:var(--neon2);line-height:1;}
+  .price-curr{font-family:var(--font-mono);font-size:1.5rem;color:var(--neon2);}
+  .price-save{display:inline-block;background:rgba(0,255,178,0.1);border:1px solid rgba(0,255,178,0.2);color:var(--neon2);font-family:var(--font-mono);font-size:0.72rem;padding:0.25rem 0.7rem;border-radius:100px;margin-bottom:2rem;}
+  .price-includes{font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:1.2rem;}
+  .price-list{list-style:none;margin-bottom:2.5rem;}
+  .price-list li{display:flex;align-items:flex-start;gap:0.75rem;font-size:0.9rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+  .price-list li:last-child{border-bottom:none;}
+  .check{color:var(--neon2);font-size:1rem;flex-shrink:0;}
+  .btn-buy{width:100%;background:linear-gradient(135deg,var(--tg),var(--tg2));color:#fff;border:none;padding:1.2rem;border-radius:8px;font-family:var(--font-head);font-size:1.05rem;font-weight:800;cursor:pointer;transition:all 0.25s;box-shadow:0 8px 40px rgba(34,158,217,0.3);letter-spacing:0.5px;display:flex;align-items:center;justify-content:center;gap:0.75rem;}
+  .btn-buy:hover{transform:translateY(-2px);box-shadow:0 12px 50px rgba(34,158,217,0.5);}
+  .price-note{display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-top:1rem;font-size:0.78rem;color:var(--muted);flex-wrap:wrap;text-align:center;}
+  .price-note span{color:var(--neon2);}
+
+  /* FAQ */
+  .faq-list{margin-top:3.5rem;display:flex;flex-direction:column;gap:0.75rem;max-width:720px;}
+  .faq-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+  .faq-q{padding:1.2rem 1.5rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:500;font-size:0.95rem;}
+  .faq-q:hover{color:var(--neon);}
+  .faq-icon{color:var(--neon);font-size:1.2rem;transition:transform 0.3s;flex-shrink:0;}
+  .faq-icon.open{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}
+  .faq-a.open{max-height:200px;}
+  .faq-a-inner{padding:1rem 1.5rem 1.2rem;color:var(--muted);font-size:0.9rem;border-top:1px solid var(--border);}
+
+  /* FOOTER */
+  footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem;text-align:center;}
+  .footer-logo{font-family:var(--font-mono);font-size:1.5rem;color:var(--neon);margin-bottom:0.5rem;}
+  .footer-logo span{color:var(--neon2);}
+  .footer-tagline{color:var(--muted);font-size:0.85rem;margin-bottom:1.5rem;}
+  .footer-links{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;}
+  .footer-links a{color:var(--muted);font-size:0.82rem;transition:color 0.2s;}
+  .footer-links a:hover{color:var(--neon);}
+  .footer-copy{margin-top:2rem;color:var(--muted);font-size:0.75rem;}
+
+  /* MODAL */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);z-index:9000;display:flex;align-items:center;justify-content:center;padding:2rem;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+  .modal-overlay.active{opacity:1;pointer-events:all;}
+  .modal{background:var(--surface);border:1px solid rgba(34,158,217,0.3);border-radius:16px;padding:2.5rem;max-width:440px;width:100%;transform:scale(0.9);transition:transform 0.3s;position:relative;}
+  .modal-overlay.active .modal{transform:scale(1);}
+  .modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;transition:color 0.2s;}
+  .modal-close:hover{color:var(--text);}
+  .modal h2{font-family:var(--font-head);font-size:1.5rem;font-weight:800;margin-bottom:0.3rem;}
+  .modal-sub{color:var(--muted);font-size:0.88rem;margin-bottom:2rem;line-height:1.6;}
+  .form-group{margin-bottom:1.2rem;}
+  .form-label{display:block;font-family:var(--font-mono);font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;}
+  .form-input{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:0.85rem 1rem;border-radius:6px;font-family:var(--font-body);font-size:0.95rem;outline:none;transition:border-color 0.2s;}
+  .form-input:focus{border-color:var(--tg);}
+  .form-input::placeholder{color:var(--muted);}
+  .btn-proceed{width:100%;background:linear-gradient(135deg,var(--tg),var(--tg2));color:#fff;border:none;padding:1rem;border-radius:6px;font-family:var(--font-head);font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.2s;margin-top:0.5rem;display:flex;align-items:center;justify-content:center;gap:0.5rem;}
+  .btn-proceed:hover{transform:translateY(-1px);box-shadow:0 6px 30px rgba(34,158,217,0.4);}
+  .secure-note{text-align:center;margin-top:1rem;font-size:0.75rem;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:0.4rem;flex-wrap:wrap;}
+
+  /* SUCCESS MODAL */
+  .success-modal{text-align:center;}
+  .success-icon{width:80px;height:80px;background:linear-gradient(135deg,var(--tg),var(--neon2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 1.5rem;box-shadow:0 0 40px rgba(34,158,217,0.4);animation:popIn 0.5s cubic-bezier(0.175,0.885,0.32,1.275) both;}
+  .success-modal h2{margin-bottom:0.5rem;}
+  .success-modal > p{color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;line-height:1.6;}
+  .payment-id-box{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:0.75rem 1rem;margin-bottom:1.5rem;}
+  .payment-id-label{font-family:var(--font-mono);font-size:0.62rem;letter-spacing:1px;color:var(--muted);text-transform:uppercase;margin-bottom:0.3rem;}
+  .payment-id-val{font-family:var(--font-mono);font-size:0.8rem;color:var(--neon2);word-break:break-all;}
+  .btn-telegram{display:flex;align-items:center;justify-content:center;gap:0.75rem;width:100%;background:linear-gradient(135deg,var(--tg),var(--tg2));color:#fff;border:none;padding:1.1rem;border-radius:8px;font-family:var(--font-head);font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 30px rgba(34,158,217,0.35);text-decoration:none;}
+  .btn-telegram:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(34,158,217,0.55);}
+  .tg-note{margin-top:1rem;font-size:0.78rem;color:var(--muted);line-height:1.6;}
+  .tg-note strong{color:var(--neon);}
+
+  /* STICKY */
+  .sticky-cta{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid rgba(34,158,217,0.2);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;z-index:800;backdrop-filter:blur(20px);transform:translateY(100%);transition:transform 0.4s;gap:1rem;flex-wrap:wrap;}
+  .sticky-cta.show{transform:translateY(0);}
+  .sticky-left{font-family:var(--font-mono);font-size:0.8rem;}
+  .sticky-price{color:var(--neon2);font-size:1.1rem;}
+  .sticky-old{color:var(--muted);text-decoration:line-through;}
+
+  /* ANIMS */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.8);}}
+  @keyframes popIn{from{transform:scale(0);opacity:0;}to{transform:scale(1);opacity:1;}}
+  .reveal{opacity:0;transform:translateY(30px);transition:all 0.7s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+
+  @media(max-width:768px){
+    section{padding:4rem 1.2rem;}
+    .pricing-card{padding:2rem;}
+    .hero-stats{gap:2rem;}
+    .phase-header{padding:1.2rem 1rem;gap:1rem;}
+    .phase-content{padding:1rem 1rem 1.5rem;}
+    .faq-list{max-width:100%;}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Dev<span>Forge</span></div>
+  <button class="nav-cta" onclick="openCheckout()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.932z"/></svg>
+    GET ROADMAP — ₹299
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="badge"><span class="badge-dot"></span>2026 Complete Edition — 35 Pages</div>
+  <h1><span>Stop Watching Tutorials.<br/>Start </span><span class="line2">Building Your Career.</span></h1>
+  <p class="hero-sub">The only coding roadmap you'll ever need. 6 phases, 50+ topics, 12+ real projects — from absolute zero to your first job or freelance client.</p>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-num">6</span><span class="stat-label">Phases</span></div>
+    <div class="stat"><span class="stat-num">50+</span><span class="stat-label">Topics</span></div>
+    <div class="stat"><span class="stat-num">12+</span><span class="stat-label">Projects</span></div>
+    <div class="stat"><span class="stat-num">100+</span><span class="stat-label">Exercises</span></div>
+    <div class="stat"><span class="stat-num">24</span><span class="stat-label">Weeks</span></div>
+  </div>
+  <div class="hero-cta-wrap">
+    <button class="btn-primary" onclick="openCheckout()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.932z"/></svg>
+      Get Instant Access — ₹299
+    </button>
+    <button class="btn-ghost" onclick="document.getElementById('phases').scrollIntoView({behavior:'smooth'})">See What's Inside ↓</button>
+  </div>
+  <div class="countdown-bar">
+    <div class="cd-label">⚡ Launch Offer Ends In</div>
+    <div class="cd-timer">
+      <div class="cd-block"><span class="cd-num" id="cd-h">00</span><span class="cd-unit">hrs</span></div>
+      <div class="cd-block"><span class="cd-num" id="cd-m">00</span><span class="cd-unit">min</span></div>
+      <div class="cd-block"><span class="cd-num" id="cd-s">00</span><span class="cd-unit">sec</span></div>
+    </div>
+    <div class="cd-price"><s>₹999</s> → <strong>₹299</strong> today</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="container">
+    <span class="sec-tag reveal">// how delivery works</span>
+    <h2 class="sec-title reveal">Pay Securely.<br/>PDF Arrives on Telegram.</h2>
+    <p class="sec-sub reveal">Four simple steps. From purchase to your Telegram in under 5 minutes.</p>
+    <div class="how-grid">
+      <div class="how-step reveal">
+        <div class="how-num">1</div>
+        <h4>Click Buy Now</h4>
+        <p>Enter your name, email, and Telegram username in the form.</p>
+      </div>
+      <div class="how-arrow reveal">→</div>
+      <div class="how-step reveal">
+        <div class="how-num">2</div>
+        <h4>Pay via Razorpay</h4>
+        <p>Secure ₹299 payment — UPI, card, or net banking. 30 seconds.</p>
+      </div>
+      <div class="how-arrow reveal">→</div>
+      <div class="how-step reveal">
+        <div class="how-num">3</div>
+        <h4>Telegram Auto-Opens</h4>
+        <p>After payment, Telegram opens with your order message pre-filled. Just tap Send.</p>
+      </div>
+      <div class="how-arrow reveal">→</div>
+      <div class="how-step reveal">
+        <div class="how-num">4</div>
+        <h4>PDF Delivered</h4>
+        <p>We verify your Razorpay payment ID and send the PDF instantly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHAT'S INSIDE -->
+<section id="inside" style="background:var(--bg2)">
+  <div class="container">
+    <span class="sec-tag reveal">// what you get</span>
+    <h2 class="sec-title reveal">Everything You Need.<br/>Nothing You Don't.</h2>
+    <p class="sec-sub reveal">A comprehensive, no-fluff guide for complete beginners. Every tool and resource listed is 100% free.</p>
+    <div class="inside-grid">
+      <div class="inside-card reveal"><span class="inside-num">01</span><span class="inside-icon">🗺️</span><h3>6-Phase Structured Roadmap</h3><p>Crystal clear progression from computer basics → HTML/CSS → JavaScript → Backend → Databases → Career. No confusion, no rabbit holes.</p></div>
+      <div class="inside-card reveal"><span class="inside-num">02</span><span class="inside-icon">📅</span><h3>Weekly Study Schedules</h3><p>Day-by-day plans for every week. Know exactly what to study on Day 1 vs Day 47. Eliminates all decision fatigue.</p></div>
+      <div class="inside-card reveal"><span class="inside-num">03</span><span class="inside-icon">💻</span><h3>12+ Real-World Projects</h3><p>Build a Weather App, Notes App with Auth, E-Commerce store, and a full-stack capstone. Projects employers actually care about.</p></div>
+      <div class="inside-card reveal"><span class="inside-num">04</span><span class="inside-icon">🃏</span><h3>Flash Cards for Every Phase</h3><p>Print-ready flashcards covering 60+ technical concepts. 10 minutes of review each morning locks knowledge into long-term memory.</p></div>
+      <div class="inside-card reveal"><span class="inside-num">05</span><span class="inside-icon">❓</span><h3>100 Interview Q&amp;As</h3><p>HTML, CSS, JavaScript, React, Node.js, Databases, DSA and Behavioral — the exact questions asked in real developer interviews.</p></div>
+      <div class="inside-card reveal"><span class="inside-num">06</span><span class="inside-icon">💼</span><h3>Freelancing Starter Guide</h3><p>How to set up Fiverr/Upwork, what to charge as a beginner, and step-by-step instructions to land your first paid client.</p></div>
+      <div class="inside-card reveal"><span class="inside-num">07</span><span class="inside-icon">📄</span><h3>Resume Writing Guide</h3><p>Exact resume structure for developers, power action words, and the golden formula for writing project bullet points that get callbacks.</p></div>
+      <div class="inside-card reveal"><span class="inside-num">08</span><span class="inside-icon">🛠️</span><h3>Free Tools Directory</h3><p>Curated list of 30+ free tools: editors, learning platforms, deployment hosts, APIs, and design resources. Zero extra cost.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PHASES -->
+<section id="phases">
+  <div class="container">
+    <span class="sec-tag reveal">// the curriculum</span>
+    <h2 class="sec-title reveal">6 Phases.<br/>One Complete Developer.</h2>
+    <p class="sec-sub reveal">Each phase builds on the last. Follow them in order and you'll never feel lost.</p>
+    <div class="phases-list">
+
+      <div class="phase-item reveal">
+        <div class="phase-header" onclick="togglePhase(this)">
+          <div class="phase-num">PHASE 01</div>
+          <div class="phase-title-wrap"><div class="phase-name">Computer &amp; Internet Basics</div><div class="phase-dur">Duration: 2–3 weeks · 1 Project</div></div>
+          <div class="phase-toggle">+</div>
+        </div>
+        <div class="phase-body"><div class="phase-content"><div class="phase-topics">
+          <span class="topic-chip">How computers work (CPU, RAM)</span><span class="topic-chip">Binary numbers &amp; data</span><span class="topic-chip">How the internet works</span><span class="topic-chip">HTTP vs HTTPS</span><span class="topic-chip">Browser, server &amp; client</span><span class="topic-chip">DNS &amp; IP addresses</span><span class="topic-chip">Terminal navigation</span><span class="topic-chip">Git basics</span><span class="topic-chip">GitHub repository setup</span><span class="topic-chip">VS Code installation</span>
+        </div></div></div>
+      </div>
+
+      <div class="phase-item reveal">
+        <div class="phase-header" onclick="togglePhase(this)">
+          <div class="phase-num">PHASE 02</div>
+          <div class="phase-title-wrap"><div class="phase-name">HTML &amp; CSS — Build Your First Website</div><div class="phase-dur">Duration: 3–4 weeks · Portfolio Project</div></div>
+          <div class="phase-toggle">+</div>
+        </div>
+        <div class="phase-body"><div class="phase-content"><div class="phase-topics">
+          <span class="topic-chip">HTML document structure</span><span class="topic-chip">Semantic HTML tags</span><span class="topic-chip">Forms &amp; inputs</span><span class="topic-chip">CSS selectors &amp; specificity</span><span class="topic-chip">Box model</span><span class="topic-chip">Flexbox layout</span><span class="topic-chip">CSS Grid</span><span class="topic-chip">Media queries</span><span class="topic-chip">Responsive design</span><span class="topic-chip">Deploy on GitHub Pages</span>
+        </div></div></div>
+      </div>
+
+      <div class="phase-item reveal">
+        <div class="phase-header" onclick="togglePhase(this)">
+          <div class="phase-num">PHASE 03</div>
+          <div class="phase-title-wrap"><div class="phase-name">JavaScript &amp; React — Make It Interactive</div><div class="phase-dur">Duration: 6–8 weeks · 4 Projects</div></div>
+          <div class="phase-toggle">+</div>
+        </div>
+        <div class="phase-body"><div class="phase-content"><div class="phase-topics">
+          <span class="topic-chip">Variables, data types</span><span class="topic-chip">Functions &amp; arrow functions</span><span class="topic-chip">Loops &amp; conditionals</span><span class="topic-chip">Arrays &amp; objects</span><span class="topic-chip">DOM manipulation</span><span class="topic-chip">Events &amp; listeners</span><span class="topic-chip">Promises &amp; async/await</span><span class="topic-chip">Fetch API &amp; JSON</span><span class="topic-chip">React components &amp; hooks</span><span class="topic-chip">Deploy on Vercel</span>
+        </div></div></div>
+      </div>
+
+      <div class="phase-item reveal">
+        <div class="phase-header" onclick="togglePhase(this)">
+          <div class="phase-num">PHASE 04</div>
+          <div class="phase-title-wrap"><div class="phase-name">Backend Development — Server &amp; Logic</div><div class="phase-dur">Duration: 6–8 weeks · Notes App with Auth</div></div>
+          <div class="phase-toggle">+</div>
+        </div>
+        <div class="phase-body"><div class="phase-content"><div class="phase-topics">
+          <span class="topic-chip">Node.js runtime</span><span class="topic-chip">npm &amp; packages</span><span class="topic-chip">Express.js server</span><span class="topic-chip">REST API design</span><span class="topic-chip">Middleware</span><span class="topic-chip">JWT authentication</span><span class="topic-chip">Password hashing (bcrypt)</span><span class="topic-chip">Environment variables</span><span class="topic-chip">Error handling</span><span class="topic-chip">Test with Postman</span>
+        </div></div></div>
+      </div>
+
+      <div class="phase-item reveal">
+        <div class="phase-header" onclick="togglePhase(this)">
+          <div class="phase-num">PHASE 05</div>
+          <div class="phase-title-wrap"><div class="phase-name">Databases — Store &amp; Retrieve Real Data</div><div class="phase-dur">Duration: 4–5 weeks · E-Commerce Project</div></div>
+          <div class="phase-toggle">+</div>
+        </div>
+        <div class="phase-body"><div class="phase-content"><div class="phase-topics">
+          <span class="topic-chip">SQL vs NoSQL</span><span class="topic-chip">MongoDB Atlas</span><span class="topic-chip">Mongoose schemas</span><span class="topic-chip">CRUD operations</span><span class="topic-chip">SQL queries</span><span class="topic-chip">JOINs</span><span class="topic-chip">Database indexes</span><span class="topic-chip">Pagination</span><span class="topic-chip">Full-stack integration</span><span class="topic-chip">Deploy on Render</span>
+        </div></div></div>
+      </div>
+
+      <div class="phase-item reveal">
+        <div class="phase-header" onclick="togglePhase(this)">
+          <div class="phase-num">PHASE 06</div>
+          <div class="phase-title-wrap"><div class="phase-name">Career Preparation — Get Hired or Get Clients</div><div class="phase-dur">Duration: 4–6 weeks · Capstone Project</div></div>
+          <div class="phase-toggle">+</div>
+        </div>
+        <div class="phase-body"><div class="phase-content"><div class="phase-topics">
+          <span class="topic-chip">Resume writing formula</span><span class="topic-chip">GitHub portfolio polish</span><span class="topic-chip">100 interview Q&amp;As</span><span class="topic-chip">LeetCode preparation</span><span class="topic-chip">Fiverr gig creation</span><span class="topic-chip">Upwork proposals</span><span class="topic-chip">Freelance pricing guide</span><span class="topic-chip">Job-ready checklist</span><span class="topic-chip">Full-stack capstone</span><span class="topic-chip">Salary &amp; rate guide</span>
+        </div></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section style="background:var(--bg2)">
+  <div class="container">
+    <span class="sec-tag reveal">// real projects</span>
+    <h2 class="sec-title reveal">Build Things That<br/>Get You Hired.</h2>
+    <p class="sec-sub reveal">Every project mirrors real-world developer work. Employers want to see what you can build — not what courses you took.</p>
+    <div class="projects-grid">
+      <div class="project-card reveal"><span class="project-tag tag-mini">Phase 1</span><h3>GitHub Profile Setup</h3><p>Your first developer identity — profile, README, and first pushed repository.</p><div class="project-stack"><span class="stack-pill">Git</span><span class="stack-pill">GitHub</span><span class="stack-pill">Markdown</span></div></div>
+      <div class="project-card reveal"><span class="project-tag tag-mini">Phase 2</span><h3>Personal Portfolio Website</h3><p>4-page responsive portfolio deployed live on GitHub Pages.</p><div class="project-stack"><span class="stack-pill">HTML</span><span class="stack-pill">CSS</span><span class="stack-pill">Flexbox</span><span class="stack-pill">Grid</span></div></div>
+      <div class="project-card reveal"><span class="project-tag tag-mini">Phase 3</span><h3>Live Weather App</h3><p>Live weather data from OpenWeatherMap API. Rebuilt in React, deployed on Vercel.</p><div class="project-stack"><span class="stack-pill">React</span><span class="stack-pill">Fetch API</span><span class="stack-pill">Vercel</span></div></div>
+      <div class="project-card reveal"><span class="project-tag tag-mini">Phase 3</span><h3>To-Do + Calculator + Quiz</h3><p>Three mini-apps nailing DOM manipulation, events, and localStorage.</p><div class="project-stack"><span class="stack-pill">JavaScript</span><span class="stack-pill">DOM</span><span class="stack-pill">localStorage</span></div></div>
+      <div class="project-card reveal"><span class="project-tag tag-mini">Phase 4</span><h3>Notes App with JWT Auth</h3><p>Full REST API — register, login, CRUD notes. All secured with JWT tokens.</p><div class="project-stack"><span class="stack-pill">Node.js</span><span class="stack-pill">Express</span><span class="stack-pill">JWT</span><span class="stack-pill">bcrypt</span></div></div>
+      <div class="project-card reveal"><span class="project-tag tag-mini">Phase 5</span><h3>E-Commerce Product Catalog</h3><p>Full-stack: React frontend + Express backend + MongoDB database. Live on the internet.</p><div class="project-stack"><span class="stack-pill">React</span><span class="stack-pill">MongoDB</span><span class="stack-pill">Render</span></div></div>
+      <div class="project-card reveal" style="grid-column:1/-1;background:linear-gradient(135deg,rgba(34,158,217,0.05),rgba(0,255,178,0.05));border-color:rgba(0,255,178,0.25)">
+        <span class="project-tag tag-main">Phase 6 — CAPSTONE</span>
+        <h3>Full-Stack Blog or E-Commerce Website</h3>
+        <p>The centerpiece of your portfolio. Register, login, create/edit/delete content, search. Frontend on Vercel, backend on Render, database on MongoDB Atlas.</p>
+        <div class="project-stack"><span class="stack-pill">React</span><span class="stack-pill">Node.js</span><span class="stack-pill">Express</span><span class="stack-pill">MongoDB</span><span class="stack-pill">JWT</span><span class="stack-pill">Vercel</span><span class="stack-pill">Render</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TESTIMONIALS -->
+<section>
+  <div class="container">
+    <span class="sec-tag reveal">// student results</span>
+    <h2 class="sec-title reveal">Real People.<br/>Real Results.</h2>
+    <div class="testi-grid">
+      <div class="testi-card reveal"><div class="stars">★★★★★</div><p class="testi-text">I tried 3 YouTube playlists before this — always got lost after JavaScript. The weekly schedule kept me on track and I actually finished all 6 phases. Got my first freelance project 2 weeks after Phase 6.</p><div class="testi-author"><div class="testi-avatar av1">R</div><div><div class="testi-name">Rahul Sharma</div><div class="testi-role">Frontend Freelancer, Pune</div></div></div></div>
+      <div class="testi-card reveal"><div class="stars">★★★★★</div><p class="testi-text">The 100 interview Q&As alone are worth 10x the price. I went through them 3 times before my placement drive. Got placed at a product startup in Bangalore for 7.2 LPA.</p><div class="testi-author"><div class="testi-avatar av2">P</div><div><div class="testi-name">Priya Nair</div><div class="testi-role">Junior Developer, Bangalore</div></div></div></div>
+      <div class="testi-card reveal"><div class="stars">★★★★★</div><p class="testi-text">I'm a commerce graduate with zero tech background. This roadmap explained everything from binary to deploying React apps. The flashcards are genius. Now earning ₹45,000/month from Upwork.</p><div class="testi-author"><div class="testi-avatar av3">A</div><div><div class="testi-name">Arjun Mehta</div><div class="testi-role">Full-Stack Freelancer, Ahmedabad</div></div></div></div>
+      <div class="testi-card reveal"><div class="stars">★★★★★</div><p class="testi-text">My portfolio has a Weather App, Notes App with real auth, and a full E-Commerce site — all deployed live. Recruiters commented on how strong my GitHub looked. Got 4 interview calls in the first week.</p><div class="testi-author"><div class="testi-avatar av4">S</div><div><div class="testi-name">Sneha Kulkarni</div><div class="testi-role">React Developer, Mumbai</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRICING -->
+<section id="pricing" style="background:var(--bg2)">
+  <div class="container">
+    <span class="sec-tag reveal" style="text-align:center;display:block">// get access now</span>
+    <h2 class="sec-title reveal" style="text-align:center">One Payment.<br/>PDF Delivered on Telegram.</h2>
+    <p class="sec-sub reveal" style="margin:0 auto;text-align:center">No subscription. No hidden fees. Delivered to your Telegram within minutes.</p>
+    <div class="pricing-wrap">
+      <div class="pricing-card reveal">
+        <span class="popular-badge">BEST VALUE</span>
+        <div class="price-label">Complete Edition 2026</div>
+        <div class="price-title">DevForge Coding Roadmap</div>
+        <div class="price-amount"><span class="price-old">₹999</span><span class="price-curr">₹</span><span class="price-new">299</span></div>
+        <span class="price-save">🎉 YOU SAVE ₹700 — 70% OFF LAUNCH PRICE</span>
+        <div class="price-includes">Everything included:</div>
+        <ul class="price-list">
+          <li><span class="check">✓</span> Complete 35-page Coding Roadmap PDF</li>
+          <li><span class="check">✓</span> 6 Phase guides with daily &amp; weekly schedules</li>
+          <li><span class="check">✓</span> 12+ project blueprints with full instructions</li>
+          <li><span class="check">✓</span> 100+ practice exercises with hints</li>
+          <li><span class="check">✓</span> Flash cards for all 6 phases (print-ready)</li>
+          <li><span class="check">✓</span> 100 Interview Q&amp;As (HTML, JS, React, Node, DB)</li>
+          <li><span class="check">✓</span> Resume writing guide + power action words</li>
+          <li><span class="check">✓</span> Freelancing starter guide + pricing sheet</li>
+          <li><span class="check">✓</span> Free tools &amp; resources directory (30+ tools)</li>
+          <li><span class="check">✓</span> Daily study routine + weekly progress tracker</li>
+          <li><span class="check">✓</span> Job-ready final checklist</li>
+          <li><span class="check">✓</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--tg)" style="flex-shrink:0;vertical-align:middle"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.932z"/></svg>
+            Instant PDF delivery via Telegram after payment
+          </li>
+        </ul>
+        <button class="btn-buy" onclick="openCheckout()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.932z"/></svg>
+          Buy Now — ₹299 · Telegram Delivery
+        </button>
+        <div class="price-note">
+          <span>🔒</span> Secured by Razorpay — UPI · Card · Net Banking &nbsp;|&nbsp;
+          <span>⚡</span> PDF on Telegram in minutes
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section>
+  <div class="container">
+    <span class="sec-tag reveal">// questions answered</span>
+    <h2 class="sec-title reveal">Frequently Asked<br/>Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">Do I need any prior coding experience?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Absolutely none. Phase 1 starts from how a computer works — before writing a single line of code. This roadmap is built specifically for complete beginners with zero background.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">How exactly do I receive the PDF on Telegram?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">After your Razorpay payment succeeds, Telegram automatically opens on your device with a pre-filled message containing your name, email, Telegram username, and Payment ID. You just tap Send. We verify your payment ID against our Razorpay dashboard and send you the PDF — usually within 5 minutes.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">Do I need a Telegram account?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes — Telegram is free to download and set up (Android, iOS, or desktop). It takes about 2 minutes. If you don't have it, install it before purchasing so you can receive your PDF immediately.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">How long to complete the roadmap?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">24 weeks at 1–2 hours per day. More time = faster completion. Consistency beats intensity — 1 hour daily beats 8 hours on weekends every single time.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">Does following this roadmap cost anything extra?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Every tool listed is 100% free — VS Code, GitHub, Vercel, Render, MongoDB Atlas, freeCodeCamp, The Odin Project. You only pay ₹299 for the roadmap PDF, not for any tools or courses.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">Can I get a refund?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Due to the digital nature of this product, refunds are not offered after delivery. If there's any issue with your purchase or you don't receive the PDF within 10 minutes, message us on Telegram and we'll resolve it immediately.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FINAL CTA -->
+<section style="text-align:center;background:radial-gradient(ellipse at center,rgba(34,158,217,0.06) 0%,transparent 70%)">
+  <div class="container">
+    <span class="sec-tag reveal" style="display:block;text-align:center">// your move</span>
+    <h2 class="sec-title reveal" style="text-align:center;font-size:clamp(2.5rem,5vw,4rem)">Every Expert Was Once<br/>A Beginner.</h2>
+    <p style="color:var(--muted);max-width:500px;margin:0 auto 2.5rem;font-weight:300" class="reveal">The only thing between you and your first developer job or client is a clear roadmap and daily action. You now have the roadmap.</p>
+    <button class="btn-primary reveal" onclick="openCheckout()" style="font-size:1.1rem;padding:1.2rem 3rem;margin:0 auto">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.932z"/></svg>
+      Start Your Journey — ₹299
+    </button>
+    <p class="reveal" style="color:var(--muted);font-size:0.8rem;margin-top:1rem">PDF on Telegram · One-Time · 100% Secure Razorpay</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Dev<span>Forge</span></div>
+  <div class="footer-tagline">From Zero to Job-Ready in 24 Weeks</div>
+  <div class="footer-links">
+    <a href="#inside">What's Inside</a>
+    <a href="#phases">Curriculum</a>
+    <a href="#pricing">Pricing</a>
+    <a href="mailto:support@devforge.in">Contact</a>
+  </div>
+  <div class="footer-copy">© 2026 DevForge. All rights reserved. · Powered by codingroadmap.in</div>
+</footer>
+
+<!-- STICKY CTA -->
+<div class="sticky-cta" id="sticky-cta">
+  <div class="sticky-left"><span class="sticky-price">₹299</span> &nbsp;<span class="sticky-old">₹999</span> &nbsp;— Complete Coding Roadmap</div>
+  <button class="btn-primary" onclick="openCheckout()" style="padding:0.7rem 1.5rem;font-size:0.85rem">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.932z"/></svg>
+    Buy on Telegram →
+  </button>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-overlay" id="checkout-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeCheckout()">✕</button>
+    <h2>Almost There! 🚀</h2>
+    <p class="modal-sub">Fill your details below. After payment, Telegram opens automatically with your order confirmation pre-filled — just tap Send.</p>
+    <div class="form-group">
+      <label class="form-label">Full Name *</label>
+      <input class="form-input" id="buyer-name" type="text" placeholder="Your full name"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email Address *</label>
+      <input class="form-input" id="buyer-email" type="email" placeholder="your@email.com"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Your Telegram Username *</label>
+      <input class="form-input" id="buyer-telegram" type="text" placeholder="@yourusername"/>
+      <div style="font-size:0.72rem;color:var(--muted);margin-top:0.4rem">Open Telegram → Settings → Username to find yours</div>
+    </div>
+    <button class="btn-proceed" onclick="initiatePayment()">
+      🔒 Pay ₹299 Securely via Razorpay
+    </button>
+    <div class="secure-note">
+      🔒 UPI · Card · Net Banking
+      <span style="color:var(--border)">|</span>
+      PDF via Telegram within minutes
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="success-modal">
+  <div class="modal success-modal">
+    <div class="success-icon">✓</div>
+    <h2>Payment Confirmed! 🎉</h2>
+    <p>Your Razorpay payment is verified. Tap the button below — Telegram opens with your order details pre-filled. Just hit <strong>Send</strong> and your PDF arrives within minutes.</p>
+    <div class="payment-id-box">
+      <div class="payment-id-label">Your Payment ID (included automatically)</div>
+      <div class="payment-id-val" id="display-payment-id">—</div>
+    </div>
+    <a class="btn-telegram" id="telegram-btn" href="#" target="_blank">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.932z"/></svg>
+      Open Telegram &amp; Send Order Confirmation
+    </a>
+    <div class="tg-note">
+      💡 Telegram opens with your order pre-filled.<br/>
+      Tap <strong>Send</strong> → we verify payment ID → PDF sent to you instantly.
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   ✏️  EDIT ONLY THESE TWO VALUES TO GO LIVE
+   ============================================================ */
+const CONFIG = {
+  razorpayKey:      'rzp_live_XXXXXXXXXXXXXXXX',  // Your Razorpay Key ID
+  telegramUsername: 'YourTelegramUsername',         // Your Telegram username (NO @ sign)
+  productName:      'DevForge Coding Roadmap — Complete 2026 Edition',
+  amount:           29900,   // paise  (₹299 = 29900)
+  businessName:     'DevForge',
+};
+/* ============================================================ */
+
+/* COUNTDOWN */
+(function(){
+  let dl;
+  try { const s = localStorage.getItem('df_dl'); dl = s ? new Date(s) : null; } catch(e){ dl=null; }
+  if(!dl || dl<=new Date()){
+    dl = new Date(Date.now() + 23*3600000 + 59*60000);
+    try{ localStorage.setItem('df_dl', dl.toISOString()); }catch(e){}
+  }
+  const tick=()=>{
+    let d = dl - new Date();
+    if(d<0) d=0;
+    const h=Math.floor(d/3600000), m=Math.floor((d%3600000)/60000), s=Math.floor((d%60000)/1000);
+    document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+  };
+  tick(); setInterval(tick,1000);
+})();
+
+/* STICKY */
+window.addEventListener('scroll',()=>{
+  document.getElementById('sticky-cta').classList.toggle('show', window.scrollY>600);
+});
+
+/* REVEAL */
+const ro = new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target);} });
+},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+/* PHASE ACCORDION */
+function togglePhase(h){
+  const b=h.nextElementSibling, t=h.querySelector('.phase-toggle'), open=b.classList.contains('open');
+  document.querySelectorAll('.phase-body.open').forEach(x=>{
+    x.classList.remove('open'); x.previousElementSibling.querySelector('.phase-toggle').classList.remove('open');
+  });
+  if(!open){ b.classList.add('open'); t.classList.add('open'); }
+}
+
+/* FAQ ACCORDION */
+function toggleFaq(q){
+  const a=q.nextElementSibling, i=q.querySelector('.faq-icon'), open=a.classList.contains('open');
+  document.querySelectorAll('.faq-a.open').forEach(x=>{
+    x.classList.remove('open'); x.previousElementSibling.querySelector('.faq-icon').classList.remove('open');
+  });
+  if(!open){ a.classList.add('open'); i.classList.add('open'); }
+}
+
+/* MODAL OPEN/CLOSE */
+function openCheckout(){ document.getElementById('checkout-modal').classList.add('active'); document.body.style.overflow='hidden'; }
+function closeCheckout(){ document.getElementById('checkout-modal').classList.remove('active'); document.body.style.overflow=''; }
+document.getElementById('checkout-modal').addEventListener('click',function(e){ if(e.target===this) closeCheckout(); });
+document.getElementById('success-modal').addEventListener('click',function(e){ if(e.target===this){ this.classList.remove('active'); document.body.style.overflow=''; } });
+
+/* RAZORPAY PAYMENT INITIATION */
+function initiatePayment(){
+  const name     = document.getElementById('buyer-name').value.trim();
+  const email    = document.getElementById('buyer-email').value.trim();
+  const telegram = document.getElementById('buyer-telegram').value.trim();
+
+  if(!name)    { alert('Please enter your full name.'); return; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ alert('Please enter a valid email address.'); return; }
+  if(!telegram){ alert('Please enter your Telegram username.'); return; }
+
+  const tgClean = telegram.replace(/^@/,'');
+
+  const rzp = new Razorpay({
+    key:         CONFIG.razorpayKey,
+    amount:      CONFIG.amount,
+    currency:    'INR',
+    name:        CONFIG.businessName,
+    description: CONFIG.productName,
+    theme:       { color:'#229ED9' },
+    prefill:     { name, email },
+    modal:       { backdropclose:false },
+    handler: function(res){
+      closeCheckout();
+      onPaymentSuccess(name, email, tgClean, res.razorpay_payment_id);
+    }
+  });
+  rzp.on('payment.failed', r=>alert('Payment failed: '+r.error.description));
+  rzp.open();
+}
+
+/* PAYMENT SUCCESS → AUTO OPEN TELEGRAM */
+function onPaymentSuccess(name, email, tgUsername, paymentId){
+  document.getElementById('display-payment-id').textContent = paymentId;
+
+  /* Pre-filled message sent to your Telegram */
+  const msg = encodeURIComponent(
+`✅ PAYMENT CONFIRMED — DevForge
+
+👤 Name: ${name}
+📧 Email: ${email}
+📲 Telegram: @${tgUsername}
+💳 Razorpay Payment ID: ${paymentId}
+📦 Product: ${CONFIG.productName}
+💰 Amount: ₹299
+
+Hi! Payment done. Please send me the PDF. Thank you! 🙏`
+  );
+
+  /* t.me deep link — opens Telegram chat with pre-filled message */
+  const tgLink = `https://t.me/${CONFIG.telegramUsername}?text=${msg}`;
+  document.getElementById('telegram-btn').href = tgLink;
+
+  /* Show success modal, then auto-open Telegram after 1.5s */
+  document.getElementById('success-modal').classList.add('active');
+  setTimeout(()=>window.open(tgLink,'_blank'), 1500);
+}
+</script>
+</body>
+</html>
